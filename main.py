@@ -10,6 +10,7 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 import os
+import scraping
 
 app = Flask(__name__)
 
@@ -19,6 +20,9 @@ LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
+
+# シス創のホームページ
+URL = "http://www.si.t.u-tokyo.ac.jp/"
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -43,9 +47,20 @@ def handle_message(event):
     if event.reply_token == "00000000000000000000000000000000":
         return
 
+
+    soup=scraping.load_site(URL)
+    notic_list=scraping.find_by_id(soup,"notic_list")
+    notic_students_list=scraping.find_by_id(soup,"notic_students_list")
+
+    test_message=notic_list[0]["string"]
+
+    # line_bot_api.reply_message(
+    #     event.reply_token,
+    #     TextSendMessage(text=event.message.text))
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text=test_message))
 
 
 if __name__ == "__main__":
