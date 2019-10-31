@@ -21,7 +21,7 @@ def find_by_id(soup,id):
     except:
         pass
 
-    response={}
+    response=[]
     for index in lists:
         dic = {}
         dic["string"] = index.a.string
