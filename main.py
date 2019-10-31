@@ -52,13 +52,13 @@ def handle_message(event):
     notic_list=scraping.find_by_id(soup,"notic_list")
     notic_students_list=scraping.find_by_id(soup,"notic_students_list")
 
-    notic_message=notic_list[0]["string"]
-    notic_students_message=notic_students_list[0]["string"]
+    notic_message=notic_list[0]["string"]+"\n"+notic_list[0]["href"]
+    notic_students_message=notic_students_list[0]["string"]+"\n"+notic_students_list[0]["href"]
 
     if(event.message.text=="学科からのお知らせ"):
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=notic_students_message))
+            TextSendMessage(text=notic_message))
 
     if(event.message.text=="学科生の方へのお知らせ"):
         line_bot_api.reply_message(
