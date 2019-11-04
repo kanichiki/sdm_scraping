@@ -79,7 +79,7 @@ def handle_message(event):
             event.reply_token,
             FlexSendMessage(
                 alt_text="学科生の方へのお知らせ",
-                contents=CarouselContainer.new_from_json_dict(json.loads({"type":"carousel","contents":[make_template.students_flex(i['string'],i['course'],i['date'],i['href']),make_template.students_flex(i['string'],i['course'],i['date'],i['href'])]}))
+                contents={"type":"carousel","contents":[make_template.students_flex(i['string'],i['course'],i['date'],i['href']),make_template.students_flex(i['string'],i['course'],i['date'],i['href'])]}
             )
         )
 
