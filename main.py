@@ -7,11 +7,14 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    FlexSendMessage, MessageEvent, TextMessage, TextSendMessage
+    FlexSendMessage, MessageEvent, TextMessage, TextSendMessage, CarouselContainer
 )
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
 import os
+import json
 import scraping
-import template
+import make_template
 
 app = Flask(__name__)
 
@@ -21,6 +24,11 @@ LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
+
+template_env = Environment(
+    loader=FileSystemLoader('templates'),
+    autoescape=select_autoescape(['html', 'xml', 'json'])
+)
 
 # シス創のホームページ
 URL = "http://www.si.t.u-tokyo.ac.jp/"
@@ -62,13 +70,16 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=notic_message))
 
+    les = "les"
+    template = template_env.get_template('temp.json')
+    data = template.render(dict(items=les))
 
     if(event.message.text=="学科生の方へのお知らせ"):
         line_bot_api.reply_message(
             event.reply_token,
             FlexSendMessage(
                 alt_text="学科生の方へのお知らせ",
-                contents=[template.students_flex(i["string"],i["course"],i["date"],i["href"]),template.students_flex(i["string"],i["course"],i["date"],i["href"])]
+                contents=CarouselContainer.new_from_json_dict(json.loads(data))
             )
         )
 
