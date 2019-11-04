@@ -67,7 +67,7 @@ def handle_message(event):
             event.reply_token,
             FlexSendMessage(
                 alt_text="items",
-                contents=template.flex_message()
+                contents=template.students_flex()
             )
         )
 
