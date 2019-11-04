@@ -68,7 +68,7 @@ def handle_message(event):
             event.reply_token,
             FlexSendMessage(
                 alt_text="学科生の方へのお知らせ",
-                contents={template.students_flex(i["string"],i["course"],i["date"],i["href"]),template.students_flex(i["string"],i["course"],i["date"],i["href"])}
+                contents=[template.students_flex(i["string"],i["course"],i["date"],i["href"]),template.students_flex(i["string"],i["course"],i["date"],i["href"])]
             )
         )
 
