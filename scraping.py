@@ -29,3 +29,26 @@ def find_by_id(soup,id):
         response.append(dic)
 
     return response
+
+def find_by_id_2(soup,id):
+    ul = soup.find(id=id)
+
+    lists = []
+
+    try:
+        lists = ul.find_all(class_="title")
+    except:
+        pass
+
+    response=[]
+    for index in lists:
+        dic = {}
+        p = index.div.find(class_="date").text
+        p = p.strip('共通E＆ESDMPSI')
+        dic["date"] = p
+        dic["course"] = index.div.find(class_="date").strong.string
+        dic["string"] = index.div.find(class_="title").a.string
+        dic["href"] = index.a.attrs["href"]
+        response.append(dic)
+
+    return response

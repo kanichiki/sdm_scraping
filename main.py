@@ -50,10 +50,10 @@ def handle_message(event):
 
     soup=scraping.load_site(URL)
     notic_list=scraping.find_by_id(soup,"notic_list")
-    notic_students_list=scraping.find_by_id(soup,"notic_students_list")
+    notic_students_list=scraping.find_by_id_2(soup,"notic_students_list")
 
     notic_message=notic_list[0]["string"]+"\n"+notic_list[0]["href"]
-    notic_students_message=notic_students_list[0]["string"]+"\n"+notic_students_list[0]["href"]
+    notic_students_message=notic_students_list[0]["string"]+"\n"+notic_students_list[0]["href"]+"\n"+notic_students_list[0]["date"]+"\n"+notic_students_list[0]["course"]
 
     if(event.message.text=="学科からのお知らせ"):
         line_bot_api.reply_message(
