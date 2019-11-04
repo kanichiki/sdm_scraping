@@ -67,8 +67,8 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             FlexSendMessage(
-                alt_text="items",
-                contents=template.students_flex(i["string"],i["course"],i["date"],i["href"])
+                alt_text="学科生の方へのお知らせ",
+                contents={template.students_flex(i["string"],i["course"],i["date"],i["href"]),template.students_flex(i["string"],i["course"],i["date"],i["href"])}
             )
         )
 
