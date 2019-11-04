@@ -14,17 +14,18 @@ def load_site(url):
 def find_by_id(soup,id):
     ul = soup.find(id=id)
 
-    lists = []
+    lists = ""
 
     try:
-        lists = ul.find_all(class_="title")
+        lists = ul.find_all('li')
     except:
         pass
 
     response=[]
     for index in lists:
         dic = {}
-        dic["string"] = index.a.string
+        dic["date"] = index.div.find(class_="date").text
+        dic["string"] = index.div.find(class_="title").a.string
         dic["href"] = index.a.attrs["href"]
         response.append(dic)
 
