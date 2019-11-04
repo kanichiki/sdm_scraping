@@ -1,4 +1,4 @@
-def students_flex():
+def students_flex(string,course,date,href):
     flex_message = {
       "type": "bubble",
       "body": {
@@ -7,7 +7,7 @@ def students_flex():
         "contents": [
           {
             "type": "text",
-            "text": "【補講・試験】A1補講日・期末試験について",
+            "text": string,
             "weight": "bold",
             "size": "md",
             "wrap": True
@@ -32,7 +32,7 @@ def students_flex():
                   },
                   {
                     "type": "text",
-                    "text": "共通",
+                    "text": course,
                     "wrap": True,
                     "color": "#666666",
                     "size": "sm",
@@ -54,7 +54,7 @@ def students_flex():
                   },
                   {
                     "type": "text",
-                    "text": "2019.10.25",
+                    "text": date,
                     "wrap": True,
                     "color": "#666666",
                     "size": "sm",
@@ -68,7 +68,7 @@ def students_flex():
         "action": {
           "type": "uri",
           "label": "action",
-          "uri": "http://www.si.t.u-tokyo.ac.jp/"
+          "uri": href
         }
       }
     }
