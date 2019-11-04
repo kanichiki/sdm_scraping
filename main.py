@@ -73,7 +73,8 @@ def handle_message(event):
             event.reply_token,
             FlexSendMessage(
                 alt_text="学科生の方へのお知らせ",
-                contents={"type": "carousel", "contents": contents_notic}
+                # contents={"type": "carousel", "contents": contents_notic}
+                contents=make_template.notic_flex(i['string'], i['date'], i['href'])
             )
         )
 
