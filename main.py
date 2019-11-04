@@ -7,7 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage,FlexSendMessage
 )
 import os
 import scraping
@@ -60,10 +60,87 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=notic_message))
 
+    flex_message={
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Brown Cafe",
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "margin": "lg",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "対象者",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 1
+                  },
+                  {
+                    "type": "text",
+                    "text": "Miraina Tower, 4-1-6 Shinjuku, Tokyo",
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "投稿日",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 1
+                  },
+                  {
+                    "type": "text",
+                    "text": "10:00 - 23:00",
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "action": {
+          "type": "uri",
+          "label": "action",
+          "uri": "http://www.si.t.u-tokyo.ac.jp/"
+        }
+      }
+    }
+
     if(event.message.text=="学科生の方へのお知らせ"):
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=notic_students_message))
+            FlexSendMessage(
+                alt_text="items",
+                contents=flex_message
+            )
+        )
 
 
 if __name__ == "__main__":
