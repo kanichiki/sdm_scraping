@@ -33,10 +33,10 @@ def find_by_id(soup,id):
 def find_by_id_2(soup,id):
     ul = soup.find(id=id)
 
-    lists = []
+    lists = ""
 
     try:
-        lists = ul.find_all(class_="title")
+        lists = ul.find_all('li')
     except:
         pass
 
