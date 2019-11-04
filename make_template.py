@@ -1,5 +1,5 @@
 def notic_flex(string,date,href):
-  {
+  flex_message={
     "type": "bubble",
     "body": {
       "type": "box",
@@ -50,6 +50,7 @@ def notic_flex(string,date,href):
       "uri": href
     }
   }
+  return flex_message
 
 def students_flex(string,course,date,href):
     flex_message = {
